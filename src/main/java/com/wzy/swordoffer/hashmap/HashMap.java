@@ -5,8 +5,8 @@ package com.wzy.swordoffer.hashmap;
  */
 public class HashMap<K, V> {
     static class Entry<K, V> {
-        private final K key;
-        private V value;
+        final K key;
+        V value;
         Entry<K, V> next;
         int hash;
 
@@ -16,30 +16,11 @@ public class HashMap<K, V> {
             next = n;
             hash = h;
         }
-
-        public final K getKey() {
-            return key;
-        }
-
-        public final V getValue() {
-            return value;
-        }
-
-        public final V setValue(V newValue) {
-            V oldValue = value;
-            value = newValue;
-            return oldValue;
-        }
-
-        public final boolean hasSameKey(K k) {
-            return this.key == null ? k == null : this.key.equals(k);
-        }
     }
 
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
     static final int MAXIMUM_CAPACITY = 1 << 30;
-    static final Entry<?,?>[] EMPTY_TABLE = {};
 
     /**
      * HashMap中键值对的数量
@@ -55,7 +36,7 @@ public class HashMap<K, V> {
      * HashMap的最大阈值，超过该大小需要扩容(该HashMap中暂时不实现该功能)
      */
     int threshold;
-    Entry<K, V>[] table = (Entry<K, V>[]) EMPTY_TABLE;
+    Entry<K, V>[] table;
 
     public HashMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
@@ -87,7 +68,7 @@ public class HashMap<K, V> {
 
     public V put(K key, V value) {
         if (key == null) {
-            return putForNullKey(key, value);
+            return putForNullKey(value);
         }
 
         int hash = key.hashCode();
@@ -107,7 +88,7 @@ public class HashMap<K, V> {
 
     public V get(K key) {
         if (key == null) {
-            return getForNullKey(key);
+            return getForNullKey();
         }
 
         int hash = key.hashCode();
@@ -122,7 +103,7 @@ public class HashMap<K, V> {
         return null;
     }
 
-    private V getForNullKey(K key) {
+    private V getForNullKey() {
         if (size == 0) {
             return null;
         }
@@ -135,7 +116,7 @@ public class HashMap<K, V> {
         return null;
     }
 
-    private V putForNullKey(K key, V value) {
+    private V putForNullKey(V value) {
         for (Entry<K, V> entry = table[0]; entry != null; entry = entry.next) {
             if (entry.key == null) {
                 V oldValue = entry.value;
