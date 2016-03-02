@@ -1,11 +1,11 @@
 package com.wzy.swordoffer.bean;
 
 /**
- * Created by wzy on 16-2-28.
+ * 泛型二叉树
  */
 public class TreeNode<T> {
-    public TreeNode left;
-    public TreeNode right;
+    public TreeNode<T> left;
+    public TreeNode<T> right;
     public T value;
 
     public TreeNode() {
