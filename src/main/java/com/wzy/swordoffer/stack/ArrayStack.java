@@ -3,6 +3,7 @@ package com.wzy.swordoffer.stack;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unchecked")
 public class ArrayStack<T> implements IStack<T> {
     private static final int DEFAULT_SIZE = 3;
     private static final int MAX_SIZE = 1 << 30;

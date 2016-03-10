@@ -14,8 +14,8 @@ public class ReplaceBlank {
         }
         char[] srcInputs = input.toCharArray();
         int numBlanks = 0;
-        for (int i = 0; i < srcInputs.length; i ++) {
-            if (srcInputs[i] == ' ') {
+        for (char ch : srcInputs) {
+            if (ch == ' ') {
                 numBlanks ++;
             }
         }
@@ -46,6 +46,7 @@ public class ReplaceBlank {
         while (scanner.hasNext()) {
             String inputStr = scanner.nextLine();
             System.out.println(replaceBlank1(inputStr));
+            System.out.println(replaceBlank(inputStr));
         }
 
         scanner.close();
