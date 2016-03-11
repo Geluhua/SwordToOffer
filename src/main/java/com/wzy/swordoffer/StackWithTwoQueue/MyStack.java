@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
  * 题目:用两个队列实现栈
  * LeetCode题目地址：https://leetcode.com/problems/implement-stack-using-queues/
  */
+@SuppressWarnings("unused")
 public class MyStack {
     private ArrayDeque<Integer> queue1 = new ArrayDeque<>();
     private ArrayDeque<Integer> queue2 = new ArrayDeque<>();
