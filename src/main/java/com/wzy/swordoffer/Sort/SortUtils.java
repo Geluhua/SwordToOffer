@@ -168,7 +168,7 @@ public class SortUtils {
         while (j <= ed) {
             newArr[h ++] = arr[j ++];
         }
-        
+
         System.arraycopy(newArr, 0, arr, bt, newArr.length);
     }
 
