@@ -8,13 +8,25 @@ import java.util.Scanner;
  */
 public class AbnormalFrogJump {
     public static void main(String[] args) {
+        long[] fib = new long[51];
+        fib[0] = 0;
+        fib[1] = 1;
+
+        for (int i = 2; i <= 50; i++) {
+            long sum = 1;
+            for (int j = 1; j < i; j++) {
+                sum += fib[j];
+            }
+            fib[i] = sum;
+        }
+
         Scanner cin = new Scanner(System.in);
 
-        int n = cin.nextInt();
-
-        long res = (long) Math.pow(2, n - 1);
-
-        System.out.println(res);
+        while (cin.hasNext()) {
+            int n = cin.nextInt();
+            long res = fib[n];
+            System.out.println(res);
+        }
         cin.close();
     }
 }
