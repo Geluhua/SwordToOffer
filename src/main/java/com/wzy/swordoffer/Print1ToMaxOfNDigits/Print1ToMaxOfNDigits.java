@@ -24,7 +24,7 @@ public class Print1ToMaxOfNDigits {
 
     private static void printNums(char[] nums, int n) {
         int ed = n - 1;
-        for (; ed >= 0; ed ++) {
+        for (; ed >= 0; ed --) {
             if (nums[ed] != '0') {
                 break;
             }
@@ -37,19 +37,18 @@ public class Print1ToMaxOfNDigits {
     }
 
     private static boolean increment(char[] nums, int n) {
-        if (nums[n] != '0') {
-            return true;
-        }
-
-        int inc = 0;
+        int inc = 1;
         for (int i = 0; i <= n; i ++) {
+            if (i == n) {
+                return true;
+            }
             int num = nums[i] - '0';
-            if (num + inc + 1 <= 9) {
-                nums[i] = (char) (nums[i] + inc + 1);
+            if (num + inc <= 9) {
+                nums[i] = (char) (nums[i] + inc);
                 break;
             } else {
-                int yn = (num + inc + 1) % 10;
-                inc = (num + inc + 1) / 10;
+                int yn = (num + inc) % 10;
+                inc = (num + inc) / 10;
                 nums[i] = (char) ('0' + yn);
             }
         }
