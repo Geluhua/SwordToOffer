@@ -51,7 +51,7 @@ public class LRUCache {
     public void set(int key, int value) {
         DoubleLinkedList<Integer> node = null;
         if (mHashMap.containsKey(key)) {
-            node = mHashMap.get(value);
+            node = mHashMap.get(key);
         }
 
         if (node == null) {
@@ -66,6 +66,7 @@ public class LRUCache {
                     mHeader.prev.prev.next = mHeader;
                     mHeader.prev = mHeader.prev.prev;
                 }
+                mCurrentNum --;
             }
             // insert new node
             mHeader.next.prev = node;
@@ -74,7 +75,8 @@ public class LRUCache {
             mHeader.next = node;
             node.key = key;
         } else {
-            // exist node, move node to head
+            // exist node, change node value and move node to head
+            node.value = value;
             if (node.prev == mHeader) {
                 // do nothing, already the first node
             } else if (node.next == mHeader) {
@@ -109,12 +111,13 @@ public class LRUCache {
     }
 
     public static void main(String[] args) {
-        LRUCache lruCache = new LRUCache(1);
-        lruCache.set(2, 1);
-        int value = lruCache.get(2);
-        lruCache.set(3, 2);
-        value = lruCache.get(2);
-        value = lruCache.get(3);
-        System.out.println(value);
+        LRUCache lruCache = new LRUCache(2);
+        lruCache.get(2);
+        lruCache.set(2, 6);
+        lruCache.get(1);
+        lruCache.set(1, 5);
+        lruCache.set(1, 2);
+        lruCache.get(1);
+        lruCache.get(2);
     }
 }
