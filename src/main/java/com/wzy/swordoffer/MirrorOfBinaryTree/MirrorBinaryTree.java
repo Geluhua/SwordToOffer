@@ -1,7 +1,9 @@
 package com.wzy.swordoffer.MirrorOfBinaryTree;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,6 +14,7 @@ public class MirrorBinaryTree {
         public BTNode<T> left;
         public BTNode<T> right;
         public T value;
+        boolean isRoot = true;
     }
 
     public static <T> void mirrorRecursively(BTNode<T> node) {
@@ -33,19 +36,21 @@ public class MirrorBinaryTree {
     }
 
     private static void traverseBTree(BTNode<Integer> root, int n) {
-        Deque<BTNode<Integer>> queue = new ArrayDeque<BTNode<Integer>>();
-        if (root != null) {
-            queue.addLast(root);
-        }
+        Deque<BTNode<Integer>> stack = new ArrayDeque<BTNode<Integer>>();
+        int count = 0;
 
-        while (!queue.isEmpty()) {
-            BTNode<Integer> node = queue.pollFirst();
-            System.out.printf("%d ", node.value);
-            if (node.left != null) {
-                queue.addLast(node.left);
-            }
-            if (node.right != null) {
-                queue.addLast(node.right);
+        while (!stack.isEmpty() || root != null) {
+            if (root != null) {
+                if (count != n - 1) {
+                    System.out.printf("%d ", root.value);
+                } else {
+                    System.out.printf("%d\n", root.value);
+                }
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                root = root.right;
             }
         }
     }
@@ -56,16 +61,54 @@ public class MirrorBinaryTree {
 
         while (cin.hasNext()) {
             int n = cin.nextInt();
-            int[] array = new int[n];
-            for (int i = 0; i < n; i ++) {
-                array[i] = cin.nextInt();
+            if (n == 0) {
+                System.out.println("NULL");
+                continue;
+            }
+            List<BTNode<Integer>> btNodeList = new ArrayList<BTNode<Integer>>();
+            for (int i = 0; i < n; i++) {
+                BTNode<Integer> btNode = new BTNode<Integer>();
+                btNode.value = cin.nextInt();
+                btNodeList.add(btNode);
             }
 
-            if (n <= 0) {
-                System.out.println("NULL");
-            } else {
-                BTNode<Integer> btRoot = new BTNode<Integer>();
+            int left, right;
+            for (int i = 0; i < n; i++) {
+                char ch = cin.next().trim().charAt(0);
+                switch (ch) {
+                    case 'd':
+                        left = cin.nextInt() - 1;
+                        right = cin.nextInt() - 1;
+                        btNodeList.get(i).left = btNodeList.get(left);
+                        btNodeList.get(i).right = btNodeList.get(right);
+                        btNodeList.get(left).isRoot = false;
+                        btNodeList.get(right).isRoot = false;
+                        break;
+                    case 'l':
+                        left = cin.nextInt() - 1;
+                        btNodeList.get(i).left = btNodeList.get(left);
+                        btNodeList.get(left).isRoot = false;
+                        break;
+                    case 'r':
+                        right = cin.nextInt() - 1;
+                        btNodeList.get(i).right = btNodeList.get(right);
+                        btNodeList.get(right).isRoot = false;
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            BTNode<Integer> root = null;
+            for (BTNode<Integer> node : btNodeList) {
+                if (node.isRoot) {
+                    root = node;
+                    break;
+                }
+            }
+
+            mirrorRecursively(root);
+            traverseBTree(root, n);
         }
 
         cin.close();
