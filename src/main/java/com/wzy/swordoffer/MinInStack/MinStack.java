@@ -7,6 +7,7 @@ import java.util.Deque;
 /**
  * 面试题21:包含min函数的栈.
  */
+@SuppressWarnings("unused")
 public class MinStack {
     private Deque<Integer> mNormalStack = new ArrayDeque<>();
     private Deque<Integer> mMinStack = new ArrayDeque<>();
