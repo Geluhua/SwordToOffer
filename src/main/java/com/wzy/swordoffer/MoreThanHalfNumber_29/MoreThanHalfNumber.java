@@ -1,6 +1,5 @@
 package com.wzy.swordoffer.MoreThanHalfNumber_29;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,18 +11,19 @@ public class MoreThanHalfNumber {
     /**
      * 使用HashMap,时间复杂度O(N),空间复杂度O(N).
      */
+    @SuppressWarnings("unused")
     private static int majorityElement(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>(nums.length);
 
-        for (int i = 0, n = nums.length; i < n; i ++) {
-            if (map.containsKey(nums[i])) {
-                map.put(nums[i], map.get(nums[i]) + 1);
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
             } else {
-                map.put(nums[i], 1);
+                map.put(num, 1);
             }
         }
 
-        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             if (entry.getValue() > nums.length / 2) {
                 return entry.getKey();
             }
@@ -38,7 +38,7 @@ public class MoreThanHalfNumber {
     public static int majorityElement2(int[] nums) {
         int res = nums[0], occur = 0;
 
-        for (int i = 1, n = nums.length; i < n; i ++) {
+        for (int i = 1, n = nums.length; i < n; i++) {
             if (occur == -1) {
                 res = nums[i];
                 occur = 0;
@@ -46,15 +46,14 @@ public class MoreThanHalfNumber {
             }
 
             if (nums[i] == res) {
-                occur ++;
+                occur++;
             } else {
-                occur --;
+                occur--;
             }
         }
 
         return res;
     }
-
 
     public static void main(String[] args) {
         int n;
@@ -63,11 +62,12 @@ public class MoreThanHalfNumber {
         while (cin.hasNext()) {
             n = cin.nextInt();
             int[] nums = new int[n];
-            for (int i = 0; i < n; i ++) {
+            for (int i = 0; i < n; i++) {
                 nums[i] = cin.nextInt();
             }
 
             int element = majorityElement2(nums);
+
 
             System.out.println(element);
         }
